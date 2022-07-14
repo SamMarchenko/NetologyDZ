@@ -11,4 +11,5 @@ public class EnemyData : MonoBehaviour
     protected float _moveSpeed;
     protected EnemyType _enemyType;
     protected ProjectileType _projectileType;
+    public ProjectileType ProjectileType => _projectileType;
 }

@@ -8,17 +8,19 @@ using Random = System.Random;
 public class UpdateManager : MonoBehaviour
 {
     public PlayerControl _PlayerControl;
-    public GameObject[] EnemyTypes;
-    public GameObject[] ProjectileTypes;
+    public EnemyData[] EnemyTypes;
+    public ProjectileData[] ProjectileTypes;
     public Transform[] SpawnPoints;
     public List<EnemyData> _CreatedEnemies;
     public List<ProjectileData> _CreatedProjectiles;
     public List<Transform> FreeSpawnPoints;
     public EnemyFactory _EnemyFactory;
+    public ProjectileFactory _ProjectileFactory;
     public float CreationDelay = 3f;
     
-    public void CreateBullet(GameObject creator)
+    public void CreateBullet(EnemyData creator)
     {
+        _ProjectileFactory.CreateBullet(creator);
     }
 
     private void Awake()
@@ -28,12 +30,7 @@ public class UpdateManager : MonoBehaviour
             AddFreeSpawnPoint(spawnPoint);
         }
     }
-
-    private void Start()
-    {
-        CreateEnemy();
-    }
-
+    
     private void Update()
     {
         CreationDelayTick();

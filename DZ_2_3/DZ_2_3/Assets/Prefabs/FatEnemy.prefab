@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7858005714057443773}
   - component: {fileID: 7820201624462719606}
   - component: {fileID: 4636380159043900009}
+  - component: {fileID: 9174248792747066451}
   m_Layer: 0
   m_Name: FatEnemy
   m_TagString: Untagged
@@ -109,6 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3263914038d95422d86ede4b8af55f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _UpdateManager: {fileID: 0}
+  EnemyData: {fileID: 4636380159043900009}
 --- !u!114 &4636380159043900009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,3 +124,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11067480d4cd43bb8c540f84c62ece13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &9174248792747066451
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2377589224013377647}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 6
+  m_Center: {x: 0, y: 0, z: 0}

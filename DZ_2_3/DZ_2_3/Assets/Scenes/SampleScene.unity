@@ -144,6 +144,22 @@ MonoBehaviour:
   rateOfFire: 1
   rotationSpeed: 2
   WantShoot: 0
+--- !u!54 &32298576
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32298573}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &41242258
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,6 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 267263721}
   - component: {fileID: 267263720}
+  - component: {fileID: 267263722}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Untagged
@@ -313,6 +330,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &267263722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267263719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27e5f7f1d6649689668746383610c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _UpdateManager: {fileID: 1631660801}
 --- !u!1 &478503873
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,12 +912,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PlayerControl: {fileID: 32298574}
   EnemyTypes:
-  - {fileID: 2377589224013377647, guid: 26b49c880a8de4d16a077b896c0e6a51, type: 3}
-  - {fileID: 5242968509516106131, guid: db73ea85ca5ec4767a2b51674db9d698, type: 3}
+  - {fileID: 4636380159043900009, guid: 26b49c880a8de4d16a077b896c0e6a51, type: 3}
+  - {fileID: 6486022725288252190, guid: db73ea85ca5ec4767a2b51674db9d698, type: 3}
   ProjectileTypes:
-  - {fileID: 7325256149356283616, guid: 8c4e9a6d31121469188bbb706383c514, type: 3}
-  - {fileID: 6476535839272940527, guid: 4ad23a8c0676c42f3b62375d69921f9c, type: 3}
-  - {fileID: 9070949161022087422, guid: 451fea2e73e0b4916b97f2d06eae80a3, type: 3}
+  - {fileID: 2552482104407599014, guid: 8c4e9a6d31121469188bbb706383c514, type: 3}
+  - {fileID: 2049589626051275622, guid: 4ad23a8c0676c42f3b62375d69921f9c, type: 3}
+  - {fileID: 1647210508749673620, guid: 451fea2e73e0b4916b97f2d06eae80a3, type: 3}
   SpawnPoints:
   - {fileID: 1434289534}
   - {fileID: 478503874}
@@ -897,6 +927,8 @@ MonoBehaviour:
   _CreatedProjectiles: []
   FreeSpawnPoints: []
   _EnemyFactory: {fileID: 267263720}
+  _ProjectileFactory: {fileID: 267263722}
+  CreationDelay: 3
 --- !u!4 &1631660802
 Transform:
   m_ObjectHideFlags: 0
@@ -1053,8 +1085,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4559207419098782116, guid: e7b1d110a5e4f4935b910954b0a6ed70, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4559207419098782119, guid: e7b1d110a5e4f4935b910954b0a6ed70, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4559207419098782119, guid: e7b1d110a5e4f4935b910954b0a6ed70, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4559207419098782123, guid: e7b1d110a5e4f4935b910954b0a6ed70, type: 3}

@@ -9,4 +9,5 @@ public class ProjectileData : MonoBehaviour
     protected float MoveSpeed;
     protected int LifeTime;
     protected ProjectileType _projectileType;
+    public ProjectileType ProjectileType => _projectileType;
 }
