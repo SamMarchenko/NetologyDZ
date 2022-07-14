@@ -15,26 +15,8 @@ public class UpdateManager : MonoBehaviour
     public List<ProjectileData> _CreatedProjectiles;
     public List<Transform> FreeSpawnPoints;
     public EnemyFactory _EnemyFactory;
-    private int minSpawnX = -20;
-    private int maxSpawnX = 20;
-    private int minSpawnZ = -20;
-    private int maxSpawnZ = 20;
-    private int counterOfEnemies = 0;
     public float CreationDelay = 3f;
     
-
-    public void AddProjectile(ProjectileData projectileData)
-    {
-        _CreatedProjectiles.Add(projectileData);
-    }
-
-    public void RemoveProjectile(ProjectileData projectileData)
-    {
-        _CreatedProjectiles.Remove(projectileData);
-    }
-
-    
-
     public void CreateBullet(GameObject creator)
     {
     }
@@ -55,7 +37,7 @@ public class UpdateManager : MonoBehaviour
     private void Update()
     {
         CreationDelayTick();
-        while (counterOfEnemies < SpawnPoints.Length && CreationDelay <= 0)
+        while (FreeSpawnPoints.Count > 0 && CreationDelay <= 0)
         {
             CreateEnemy();
         }
@@ -67,7 +49,19 @@ public class UpdateManager : MonoBehaviour
         CreationDelay -= Time.deltaTime;
     }
 
+    #region Projectile
 
+    public void AddProjectile(ProjectileData projectileData)
+    {
+        _CreatedProjectiles.Add(projectileData);
+    }
+
+    public void RemoveProjectile(ProjectileData projectileData)
+    {
+        _CreatedProjectiles.Remove(projectileData);
+    }
+
+    #endregion
 
     #region SpawnPoints
 
@@ -107,7 +101,6 @@ public class UpdateManager : MonoBehaviour
     {
         var enemy = _EnemyFactory.CreateEnemy();
         enemy.transform.position = GiveRandomFreeSpawnPoint().position;
-        counterOfEnemies++;
         CreationDelay = 3f;
     }
 
