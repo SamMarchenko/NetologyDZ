@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    
+    [SerializeField] private UpdateManager _updateManager;
+    //todo: перенести в playerData
     [SerializeField] float moveSpeed;
     [SerializeField] private float rateOfFire;
     [SerializeField] private float rotationSpeed;
-    protected ProjectileType _projectileType;
-    public bool WantShoot;
-    
+    [SerializeField] private PlayersData _playersData;
+
     private float shootCoolDown;
     private void Start()
     {
-        _projectileType = ProjectileType.PlayersProjectile;
+        //_projectileType = ProjectileType.PlayersProjectile;
         shootCoolDown = rateOfFire;
-        WantShoot = false;
     }
     void Update()
     {
@@ -37,8 +38,8 @@ public class PlayerControl : MonoBehaviour
         {
             
             Debug.Log("SHOOTING!!!");
-            WantShoot = true;
-            //CreateBullet(transform.position);
+            
+            _updateManager.CreateBullet(_playersData);
             shootCoolDown = rateOfFire;
         }
     }

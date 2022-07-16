@@ -140,10 +140,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6904ecb15fe9e4d22bfb136e2a5956fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _updateManager: {fileID: 1631660801}
   moveSpeed: 5
   rateOfFire: 1
   rotationSpeed: 2
-  WantShoot: 0
+  _playersData: {fileID: 32298575}
+--- !u!114 &32298575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32298573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934a35e3ceccd4377aa190a62815e77d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &32298576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,7 +197,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 41242258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: -15}
+  m_LocalPosition: {x: -12, y: 1, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685985459}
@@ -255,7 +268,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a0fead3da467f495d9cef68d9036a9cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -367,7 +380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478503873}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 0, z: 15}
+  m_LocalPosition: {x: -12, y: 1, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685985459}
@@ -397,7 +410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 501187636}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: -15}
+  m_LocalPosition: {x: 12, y: 1, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685985459}
@@ -631,7 +644,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4ced68490711c4ad5a6e99125fa1e5d0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -726,7 +739,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a0fead3da467f495d9cef68d9036a9cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -780,7 +793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434289533}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12, y: 0, z: 15}
+  m_LocalPosition: {x: 12, y: 1, z: 15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 685985459}
@@ -851,7 +864,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a0fead3da467f495d9cef68d9036a9cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -917,7 +930,7 @@ MonoBehaviour:
   ProjectileTypes:
   - {fileID: 2552482104407599014, guid: 8c4e9a6d31121469188bbb706383c514, type: 3}
   - {fileID: 2049589626051275622, guid: 4ad23a8c0676c42f3b62375d69921f9c, type: 3}
-  - {fileID: 1647210508749673620, guid: 451fea2e73e0b4916b97f2d06eae80a3, type: 3}
+  - {fileID: -6382376774963250065, guid: 451fea2e73e0b4916b97f2d06eae80a3, type: 3}
   SpawnPoints:
   - {fileID: 1434289534}
   - {fileID: 478503874}
@@ -1008,7 +1021,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a0fead3da467f495d9cef68d9036a9cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1089,6 +1102,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4559207419098782117, guid: e7b1d110a5e4f4935b910954b0a6ed70, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2cbe1157fd33c4b0bac94351e5d7029a, type: 2}
     - target: {fileID: 4559207419098782119, guid: e7b1d110a5e4f4935b910954b0a6ed70, type: 3}
       propertyPath: m_Name
       value: Player

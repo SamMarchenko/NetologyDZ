@@ -7,7 +7,7 @@ namespace DefaultNamespace
         public UpdateManager _UpdateManager;
         
         
-        public ProjectileData CreateBullet(EnemyData enemyData)
+        public ProjectileData CreateBullet(BaseData enemyData)
         {
             var spawn = enemyData.transform.position;
             var projectileTypes = _UpdateManager.ProjectileTypes;

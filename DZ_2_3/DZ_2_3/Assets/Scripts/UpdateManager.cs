@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DefaultNamespace;
 using UnityEngine;
 using Random = System.Random;
@@ -17,8 +18,8 @@ public class UpdateManager : MonoBehaviour
     public EnemyFactory _EnemyFactory;
     public ProjectileFactory _ProjectileFactory;
     public float CreationDelay = 3f;
-    
-    public void CreateBullet(EnemyData creator)
+
+    public void CreateBullet(BaseData creator)
     {
         _ProjectileFactory.CreateBullet(creator);
     }
@@ -30,13 +31,24 @@ public class UpdateManager : MonoBehaviour
             AddFreeSpawnPoint(spawnPoint);
         }
     }
-    
+
     private void Update()
     {
         CreationDelayTick();
         while (FreeSpawnPoints.Count > 0 && CreationDelay <= 0)
         {
             CreateEnemy();
+        }
+
+        if (_CreatedProjectiles.Count > 0)
+        {
+            UpdateLifeTimeOfProjectiles();
+            var endedProjectiles = GettAllEndedProjectiles();
+
+            if (endedProjectiles.Count > 0)
+            {
+                RemoveProjectiles(endedProjectiles);
+            }
         }
     }
 
@@ -53,9 +65,38 @@ public class UpdateManager : MonoBehaviour
         _CreatedProjectiles.Add(projectileData);
     }
 
-    public void RemoveProjectile(ProjectileData projectileData)
+    public void RemoveAndDeleteProjectile(ProjectileData projectileData)
     {
         _CreatedProjectiles.Remove(projectileData);
+        Destroy(projectileData.gameObject);
+    }
+
+    public void RemoveProjectiles(List<ProjectileData> projectiles)
+    {
+        for (int i = 0; i < _CreatedProjectiles.Count; i++)
+        {
+            RemoveAndDeleteProjectile(_CreatedProjectiles[i]);
+        }
+    }
+
+    public void UpdateLifeTimeOfProjectiles()
+    {
+        foreach (var projectile in _CreatedProjectiles)
+        {
+            projectile.LifeTime -= Time.deltaTime;
+        }
+    }
+
+    public List<ProjectileData> GettAllEndedProjectiles()
+    {
+        var EndedLifeTimeProjectiles = new List<ProjectileData>();
+        foreach (var projectile in _CreatedProjectiles)
+        {
+            if (projectile.LifeTime > 0) continue;
+            EndedLifeTimeProjectiles.Add(projectile);
+        }
+
+        return EndedLifeTimeProjectiles;
     }
 
     #endregion
@@ -71,7 +112,7 @@ public class UpdateManager : MonoBehaviour
     {
         FreeSpawnPoints.Remove(spawnPoint);
     }
-    
+
     public Transform GiveRandomFreeSpawnPoint()
     {
         Random random = new Random();
@@ -88,12 +129,12 @@ public class UpdateManager : MonoBehaviour
     {
         _CreatedEnemies.Add(enemyData);
     }
-    
+
     public void RemoveEnemy(EnemyData enemyData)
     {
         _CreatedEnemies.Remove(enemyData);
     }
-    
+
     private void CreateEnemy()
     {
         var enemy = _EnemyFactory.CreateEnemy();

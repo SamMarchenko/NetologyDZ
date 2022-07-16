@@ -7,7 +7,8 @@ public class ProjectileData : MonoBehaviour
 {
     protected int Damage;
     protected float MoveSpeed;
-    protected int LifeTime;
+    protected float _lifeTime;
+    public float  LifeTime { get; set; }
     protected ProjectileType _projectileType;
     public ProjectileType ProjectileType => _projectileType;
 }
