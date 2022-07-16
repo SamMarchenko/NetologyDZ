@@ -18,14 +18,10 @@ public class UpdateManager : MonoBehaviour
     public EnemyFactory _EnemyFactory;
     public ProjectileFactory _ProjectileFactory;
     public float CreationDelay = 3f;
-
-    public void CreateBullet(BaseData creator)
-    {
-        _ProjectileFactory.CreateBullet(creator);
-    }
-
+    
     private void Awake()
     {
+        var endedProjectiles = new List<ProjectileData>();
         foreach (var spawnPoint in SpawnPoints)
         {
             AddFreeSpawnPoint(spawnPoint);
@@ -42,13 +38,9 @@ public class UpdateManager : MonoBehaviour
 
         if (_CreatedProjectiles.Count > 0)
         {
+            UpdateMovingProjectiles();
             UpdateLifeTimeOfProjectiles();
-            var endedProjectiles = GettAllEndedProjectiles();
-
-            if (endedProjectiles.Count > 0)
-            {
-                RemoveProjectiles(endedProjectiles);
-            }
+            ClearEndedProjectiles();
         }
     }
 
@@ -56,6 +48,10 @@ public class UpdateManager : MonoBehaviour
     {
         if (CreationDelay <= 0) return;
         CreationDelay -= Time.deltaTime;
+    }
+    public void CreateBullet(BaseData creator)
+    {
+        _ProjectileFactory.CreateBullet(creator);
     }
 
     #region Projectile
@@ -70,7 +66,16 @@ public class UpdateManager : MonoBehaviour
         _CreatedProjectiles.Remove(projectileData);
         Destroy(projectileData.gameObject);
     }
-
+    public void ClearEndedProjectiles()
+    {
+        for (int i = 0; i < _CreatedProjectiles.Count; i++)
+        {
+            if (_CreatedProjectiles[i].LifeTime <=0)
+            {
+                RemoveAndDeleteProjectile(_CreatedProjectiles[i]);
+            }
+        }  
+    }
     public void RemoveProjectiles(List<ProjectileData> projectiles)
     {
         for (int i = 0; i < _CreatedProjectiles.Count; i++)
@@ -86,7 +91,13 @@ public class UpdateManager : MonoBehaviour
             projectile.LifeTime -= Time.deltaTime;
         }
     }
-
+    public void UpdateMovingProjectiles()
+    {
+        foreach (var projectile in _CreatedProjectiles)
+        {
+            projectile.transform.Translate(0,0,projectile.MoveSpeed * Time.deltaTime);
+        }
+    }
     public List<ProjectileData> GettAllEndedProjectiles()
     {
         var EndedLifeTimeProjectiles = new List<ProjectileData>();

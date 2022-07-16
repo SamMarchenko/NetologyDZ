@@ -16,6 +16,7 @@ namespace DefaultNamespace
                 if (enemyData.ProjectileType == type.ProjectileType)
                 {
                     var projectile = Instantiate(type, spawn, Quaternion.identity);
+                    projectile.transform.rotation = enemyData.transform.rotation;
                     _UpdateManager.AddProjectile(projectile);
                     return projectile;
                 }

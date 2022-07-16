@@ -6,7 +6,9 @@ using DefaultNamespace;
 public class ProjectileData : MonoBehaviour
 {
     protected int Damage;
-    protected float MoveSpeed;
+    protected float _moveSpeed;
+    public float MoveSpeed => _moveSpeed;
+
     protected float _lifeTime;
     public float  LifeTime { get; set; }
     protected ProjectileType _projectileType;

@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        Debug.Log($"I see");
         if (other.CompareTag("Player") && _shootCoolDown < 0f)
         {
             enemy.transform.LookAt(other.transform);
