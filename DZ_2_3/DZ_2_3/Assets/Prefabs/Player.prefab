@@ -195,9 +195,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _updateManager: {fileID: 0}
-  moveSpeed: 5
-  rateOfFire: 2
-  rotationSpeed: 3
   _playersData: {fileID: 1077038852425233498}
 --- !u!114 &1077038852425233498
 MonoBehaviour:
@@ -211,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 934a35e3ceccd4377aa190a62815e77d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rotationSpeed: 100
 --- !u!54 &1607695664764863083
 Rigidbody:
   m_ObjectHideFlags: 0

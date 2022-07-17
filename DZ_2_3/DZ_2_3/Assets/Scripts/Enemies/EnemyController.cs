@@ -5,11 +5,13 @@ public class EnemyController : BaseController
 {
     //todo: Сделать серилизованным
     [SerializeField] private UpdateManager _UpdateManager;
-    public SpawnPointController SpawnPointController;
     public UpdateManager UpdateManager => _UpdateManager;
+    private float _shootCoolDown;
+    
+    public SpawnPointController SpawnPointController;
     public EnemyData EnemyData;
     public GameObject enemy;
-    private float _shootCoolDown;
+    
 
     public void Start()
     {
@@ -34,9 +36,5 @@ public class EnemyController : BaseController
     public void SetUpdateManager(UpdateManager updateManager)
     {
         _UpdateManager = updateManager;
-        if (_UpdateManager == null)
-        {
-            Debug.Log($"{gameObject.name} IS NULL!!!");
-        }
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 
     public class PlayersFactory : MonoBehaviour
     {
-        //public UpdateManager _UpdateManager;
         private PlayersData _playersView;
 
         public PlayersData CreatePlayer(UpdateManager _updateManager)
