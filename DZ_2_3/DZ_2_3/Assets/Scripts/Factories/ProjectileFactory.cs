@@ -9,7 +9,7 @@ namespace DefaultNamespace
         
         public ProjectileData CreateBullet(BaseData enemyData)
         {
-            var spawn = enemyData.transform.position;
+            var spawn = enemyData.transform.TransformPoint(Vector3.forward*1.1f);
             var projectileTypes = _UpdateManager.ProjectileTypes;
             foreach (var type in projectileTypes)
             {

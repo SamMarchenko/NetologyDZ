@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : BaseController
 {
     public UpdateManager _UpdateManager;
     public EnemyData EnemyData;

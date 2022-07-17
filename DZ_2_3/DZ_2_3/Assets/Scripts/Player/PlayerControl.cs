@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class PlayerControl : BaseController
 {
     
     [SerializeField] private UpdateManager _updateManager;
+
     //todo: перенести в playerData
     [SerializeField] float moveSpeed;
     [SerializeField] private float rateOfFire;
     [SerializeField] private float rotationSpeed;
     [SerializeField] private PlayersData _playersData;
+    public PlayersData PlayersData { get; set; }
 
     private float shootCoolDown;
     private void Start()
@@ -53,5 +55,10 @@ public class PlayerControl : MonoBehaviour
         {
             transform.Rotate(0,rotationSpeed,0);
         }
+    }
+
+    public void SetUpdateManager(UpdateManager updateManager)
+    {
+        _updateManager = updateManager;
     }
 }

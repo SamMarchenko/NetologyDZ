@@ -10,13 +10,15 @@ public class UpdateManager : MonoBehaviour
 {
     public PlayerControl _PlayerControl;
     public EnemyData[] EnemyTypes;
+    public PlayersData Player;
     public ProjectileData[] ProjectileTypes;
     public Transform[] SpawnPoints;
-    public List<EnemyData> _CreatedEnemies;
+    public List<BaseData> _CreatedEnemies;
     public List<ProjectileData> _CreatedProjectiles;
     public List<Transform> FreeSpawnPoints;
     public EnemyFactory _EnemyFactory;
     public ProjectileFactory _ProjectileFactory;
+    public PlayersFactory _PlayersFactory;
     public float CreationDelay = 3f;
     
     private void Awake()
@@ -27,6 +29,12 @@ public class UpdateManager : MonoBehaviour
             AddFreeSpawnPoint(spawnPoint);
         }
     }
+
+    private void Start()
+    {
+        _PlayersFactory.CreatePlayer(this);
+    }
+    
 
     private void Update()
     {
@@ -76,13 +84,6 @@ public class UpdateManager : MonoBehaviour
             }
         }  
     }
-    public void RemoveProjectiles(List<ProjectileData> projectiles)
-    {
-        for (int i = 0; i < _CreatedProjectiles.Count; i++)
-        {
-            RemoveAndDeleteProjectile(_CreatedProjectiles[i]);
-        }
-    }
 
     public void UpdateLifeTimeOfProjectiles()
     {
@@ -97,17 +98,6 @@ public class UpdateManager : MonoBehaviour
         {
             projectile.transform.Translate(0,0,projectile.MoveSpeed * Time.deltaTime);
         }
-    }
-    public List<ProjectileData> GettAllEndedProjectiles()
-    {
-        var EndedLifeTimeProjectiles = new List<ProjectileData>();
-        foreach (var projectile in _CreatedProjectiles)
-        {
-            if (projectile.LifeTime > 0) continue;
-            EndedLifeTimeProjectiles.Add(projectile);
-        }
-
-        return EndedLifeTimeProjectiles;
     }
 
     #endregion
@@ -136,12 +126,12 @@ public class UpdateManager : MonoBehaviour
 
     #region Enemy
 
-    public void AddEnemy(EnemyData enemyData)
+    public void AddEnemy(BaseData enemyData)
     {
         _CreatedEnemies.Add(enemyData);
     }
 
-    public void RemoveEnemy(EnemyData enemyData)
+    public void RemoveEnemy(BaseData enemyData)
     {
         _CreatedEnemies.Remove(enemyData);
     }

@@ -7,8 +7,8 @@ public class EnemyFactory : MonoBehaviour
 {
     public UpdateManager _UpdateManager;
     private EnemyData _enemyView;
-    private EnemyData _enemyData;
-    private EnemyController _enemyController;
+    //private EnemyData _enemyData;
+    //private EnemyController _enemyController;
     private Random _random;
 
     private void Start()
