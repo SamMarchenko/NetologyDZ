@@ -8,7 +8,6 @@ public class ProjectileController : MonoBehaviour
 {
 
     public ProjectileData projectileData;
-
     public bool CanDestroy;
 
     [SerializeField] private ProjectileType _projectileType;

@@ -6,9 +6,6 @@ using UnityEngine;
 public class PlayerControl : BaseController
 {
     [SerializeField] private UpdateManager _updateManager;
-
-    //todo: перенести в playerData
-
     [SerializeField] private PlayersData _playersData;
     public PlayersData PlayersData { get; set; }
 

@@ -60,25 +60,7 @@ public class UpdateManager : MonoBehaviour
             ClearEndedProjectiles();
         }
     }
-
-    public void CheckIsFreePointAndUpdate()
-    {
-        for (int i = 0; i < OccupiedSpawnPoints.Count; i++)
-        {
-            if (OccupiedSpawnPoints[i].CreatedObject is null)
-            {
-                AddFreeSpawnPoint(OccupiedSpawnPoints[i].transform);
-                CreationDelay = 1.5f;
-            }
-        }
-    }
-
-    private void CreationDelayTick()
-    {
-        if (CreationDelay <= 0) return;
-        CreationDelay -= Time.deltaTime;
-    }
-
+    
     public void CreateBullet(BaseData creator)
     {
         _ProjectileFactory.CreateBullet(creator);
@@ -139,6 +121,17 @@ public class UpdateManager : MonoBehaviour
 
     #region SpawnPoints
 
+    public void CheckIsFreePointAndUpdate()
+    {
+        for (int i = 0; i < OccupiedSpawnPoints.Count; i++)
+        {
+            if (OccupiedSpawnPoints[i].CreatedObject is null)
+            {
+                AddFreeSpawnPoint(OccupiedSpawnPoints[i].transform);
+                CreationDelay = 1.5f;
+            }
+        }
+    }
     public void AddFreeSpawnPoint(Transform spawnPoint)
     {
         FreeSpawnPoints.Add(spawnPoint);
@@ -163,7 +156,13 @@ public class UpdateManager : MonoBehaviour
     #endregion
 
     #region Enemy
-
+    
+    private void CreationDelayTick()
+    {
+        if (CreationDelay <= 0) return;
+        CreationDelay -= Time.deltaTime;
+    }
+    
     public void AddEnemy(EnemyData enemyData)
     {
         _CreatedUnits.Add(enemyData);

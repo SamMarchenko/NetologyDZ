@@ -13,7 +13,7 @@ public class PlayersData : BaseData
     {
         RotationSpeed = 10000f;
         _health = 10;
-        _rateOfFire = 4f;
+        _rateOfFire = 2f;
         _moveSpeed = 30;
         _projectileType = ProjectileType.PlayersProjectile;
     }

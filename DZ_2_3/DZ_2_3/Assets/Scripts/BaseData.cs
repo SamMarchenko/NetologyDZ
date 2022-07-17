@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class BaseData : MonoBehaviour
 {
-    
-    
     protected int _health;
     public int Health
     {
