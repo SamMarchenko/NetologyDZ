@@ -138,7 +138,7 @@ public class UpdateManager : MonoBehaviour
 
     private void CreateEnemy()
     {
-        var enemy = _EnemyFactory.CreateEnemy();
+        var enemy = _EnemyFactory.CreateEnemy(this);
         enemy.transform.position = GiveRandomFreeSpawnPoint().position;
         CreationDelay = 3f;
     }
