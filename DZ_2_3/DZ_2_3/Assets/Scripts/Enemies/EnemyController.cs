@@ -5,6 +5,7 @@ public class EnemyController : BaseController
 {
     //todo: Сделать серилизованным
     [SerializeField] private UpdateManager _UpdateManager;
+    public SpawnPointController SpawnPointController;
     public UpdateManager UpdateManager => _UpdateManager;
     public EnemyData EnemyData;
     public GameObject enemy;
@@ -22,7 +23,6 @@ public class EnemyController : BaseController
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log($"I see");
         if (other.CompareTag("Player") && _shootCoolDown < 0f)
         {
             enemy.transform.LookAt(other.transform);
@@ -38,6 +38,5 @@ public class EnemyController : BaseController
         {
             Debug.Log($"{gameObject.name} IS NULL!!!");
         }
-        Debug.Log("");
     }
 }

@@ -17,5 +17,4 @@ using UnityEngine;
             _updateManager.AddPlayer(player.GetComponent<PlayersData>());
             return player;
         }
-        
     }

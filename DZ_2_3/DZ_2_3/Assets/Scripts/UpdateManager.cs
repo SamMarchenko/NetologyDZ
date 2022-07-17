@@ -16,10 +16,11 @@ public class UpdateManager : MonoBehaviour
     public List<BaseData> _CreatedUnits;
     public List<ProjectileData> _CreatedProjectiles;
     public List<Transform> FreeSpawnPoints;
+    public List<SpawnPointController> OccupiedSpawnPoints;
     public EnemyFactory _EnemyFactory;
     public ProjectileFactory _ProjectileFactory;
     public PlayersFactory _PlayersFactory;
-    public float CreationDelay = 3f;
+    public float CreationDelay = 1.5f;
 
     private void Awake()
     {
@@ -44,11 +45,31 @@ public class UpdateManager : MonoBehaviour
             CreateEnemy();
         }
 
+        if (_CreatedUnits.Count > 0)
+        {
+            CheckUnitsHealth();
+            
+        }
+        CheckIsFreePointAndUpdate();
+
         if (_CreatedProjectiles.Count > 0)
         {
             UpdateMovingProjectiles();
             UpdateLifeTimeOfProjectiles();
+            CheckCanDestroyProjectiles();
             ClearEndedProjectiles();
+        }
+    }
+
+    public void CheckIsFreePointAndUpdate()
+    {
+        for (int i = 0; i < OccupiedSpawnPoints.Count; i++)
+        {
+            if (OccupiedSpawnPoints[i].CreatedObject is null)
+            {
+                AddFreeSpawnPoint(OccupiedSpawnPoints[i].transform);
+                CreationDelay = 1.5f;
+            }
         }
     }
 
@@ -95,6 +116,17 @@ public class UpdateManager : MonoBehaviour
         }
     }
 
+    public void CheckCanDestroyProjectiles()
+    {
+        for (int i = 0; i < _CreatedProjectiles.Count; i++)
+        {
+            if (_CreatedProjectiles[i].CanDestroy)
+            {
+                RemoveAndDeleteProjectile(_CreatedProjectiles[i]);
+            }
+        }
+    }
+
     public void UpdateMovingProjectiles()
     {
         foreach (var projectile in _CreatedProjectiles)
@@ -110,17 +142,20 @@ public class UpdateManager : MonoBehaviour
     public void AddFreeSpawnPoint(Transform spawnPoint)
     {
         FreeSpawnPoints.Add(spawnPoint);
+        OccupiedSpawnPoints.Remove(spawnPoint.GetComponent<SpawnPointController>());
     }
 
     public void RemoveSpawnPoint(Transform spawnPoint)
     {
         FreeSpawnPoints.Remove(spawnPoint);
+        OccupiedSpawnPoints.Add(spawnPoint.GetComponent<SpawnPointController>());
     }
 
     public Transform GiveRandomFreeSpawnPoint()
     {
         Random random = new Random();
         var spawnPoint = FreeSpawnPoints[random.Next(0, FreeSpawnPoints.Count)];
+
         RemoveSpawnPoint(spawnPoint);
         return spawnPoint;
     }
@@ -129,7 +164,7 @@ public class UpdateManager : MonoBehaviour
 
     #region Enemy
 
-    public void AddEnemy (EnemyData enemyData)
+    public void AddEnemy(EnemyData enemyData)
     {
         _CreatedUnits.Add(enemyData);
         if (enemyData.EnemyController is null)
@@ -148,16 +183,35 @@ public class UpdateManager : MonoBehaviour
         _CreatedUnits.Add(playerData);
     }
 
-    public void RemoveEnemy(BaseData enemyData)
+    public void RemoveEnemyAndClearList(BaseData enemyData)
     {
         _CreatedUnits.Remove(enemyData);
+        var enemyController = enemyData.GetComponent<EnemyController>();
+        enemyController.SpawnPointController.CreatedObject = null;
+        Destroy(enemyData.gameObject);
     }
 
     private void CreateEnemy()
     {
         var enemy = _EnemyFactory.CreateEnemy(this);
-        enemy.transform.position = GiveRandomFreeSpawnPoint().position;
-        CreationDelay = 3f;
+        
+        var spawnPoint = GiveRandomFreeSpawnPoint();
+        enemy.transform.position = spawnPoint.position;
+        var spawnPointController = spawnPoint.GetComponent<SpawnPointController>();
+        spawnPointController.CreatedObject = enemy.gameObject;
+        enemy.EnemyController.SpawnPointController = spawnPointController;
+        CreationDelay = 1.5f;
+    }
+
+    public void CheckUnitsHealth()
+    {
+        for (int i = 0; i < _CreatedUnits.Count; i++)
+        {
+            if (_CreatedUnits[i].Health <= 0)
+            {
+                RemoveEnemyAndClearList(_CreatedUnits[i]);
+            }
+        }
     }
 
     #endregion
