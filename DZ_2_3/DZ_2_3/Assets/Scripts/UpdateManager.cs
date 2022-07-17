@@ -11,10 +11,10 @@ public class UpdateManager : MonoBehaviour
     public PlayerControl _PlayerControl;
     public EnemyData[] EnemyTypes;
     public PlayersData Player;
-    public ProjectileData[] ProjectileTypes;
+    public ProjectileController[] ProjectileTypes;
     public Transform[] SpawnPoints;
     public List<BaseData> _CreatedUnits;
-    public List<ProjectileData> _CreatedProjectiles;
+    public List<ProjectileController> _CreatedProjectiles;
     public List<Transform> FreeSpawnPoints;
     public List<SpawnPointController> OccupiedSpawnPoints;
     public EnemyFactory _EnemyFactory;
@@ -24,7 +24,7 @@ public class UpdateManager : MonoBehaviour
 
     private void Awake()
     {
-        var endedProjectiles = new List<ProjectileData>();
+        var endedProjectiles = new List<ProjectileController>();
         foreach (var spawnPoint in SpawnPoints)
         {
             AddFreeSpawnPoint(spawnPoint);
@@ -86,22 +86,22 @@ public class UpdateManager : MonoBehaviour
 
     #region Projectile
 
-    public void AddProjectile(ProjectileData projectileData)
+    public void AddProjectile(ProjectileController projectileController)
     {
-        _CreatedProjectiles.Add(projectileData);
+        _CreatedProjectiles.Add(projectileController);
     }
 
-    public void RemoveAndDeleteProjectile(ProjectileData projectileData)
+    public void RemoveAndDeleteProjectile(ProjectileController projectileController)
     {
-        _CreatedProjectiles.Remove(projectileData);
-        Destroy(projectileData.gameObject);
+        _CreatedProjectiles.Remove(projectileController);
+        Destroy(projectileController.gameObject);
     }
 
     public void ClearEndedProjectiles()
     {
         for (int i = 0; i < _CreatedProjectiles.Count; i++)
         {
-            if (_CreatedProjectiles[i].LifeTime <= 0)
+            if (_CreatedProjectiles[i].projectileData.LifeTime <= 0)
             {
                 RemoveAndDeleteProjectile(_CreatedProjectiles[i]);
             }
@@ -112,7 +112,7 @@ public class UpdateManager : MonoBehaviour
     {
         foreach (var projectile in _CreatedProjectiles)
         {
-            projectile.LifeTime -= Time.deltaTime;
+            projectile.projectileData.LifeTime -= Time.deltaTime;
         }
     }
 
@@ -131,7 +131,7 @@ public class UpdateManager : MonoBehaviour
     {
         foreach (var projectile in _CreatedProjectiles)
         {
-            projectile.transform.Translate(0, 0, projectile.MoveSpeed * Time.deltaTime);
+            projectile.transform.Translate(0, 0, projectile.projectileData.MoveSpeed * Time.deltaTime);
         }
     }
 
@@ -187,7 +187,10 @@ public class UpdateManager : MonoBehaviour
     {
         _CreatedUnits.Remove(enemyData);
         var enemyController = enemyData.GetComponent<EnemyController>();
-        enemyController.SpawnPointController.CreatedObject = null;
+        if (enemyData as EnemyData)
+        {
+            enemyController.SpawnPointController.CreatedObject = null;
+        }
         Destroy(enemyData.gameObject);
     }
 
