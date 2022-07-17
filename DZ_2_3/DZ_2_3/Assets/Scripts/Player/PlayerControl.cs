@@ -49,11 +49,11 @@ public class PlayerControl : BaseController
     {
         if (Input.GetKey(KeyCode.Q))
         {
-            transform.Rotate(0,-rotationSpeed,0);
+            transform.Rotate(0,-rotationSpeed*Time.deltaTime,0);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            transform.Rotate(0,rotationSpeed,0);
+            transform.Rotate(0,rotationSpeed*Time.deltaTime,0);
         }
     }
 
