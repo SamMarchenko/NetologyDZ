@@ -13,14 +13,14 @@ public class UpdateManager : MonoBehaviour
     public PlayersData Player;
     public ProjectileData[] ProjectileTypes;
     public Transform[] SpawnPoints;
-    public List<BaseData> _CreatedEnemies;
+    public List<BaseData> _CreatedUnits;
     public List<ProjectileData> _CreatedProjectiles;
     public List<Transform> FreeSpawnPoints;
     public EnemyFactory _EnemyFactory;
     public ProjectileFactory _ProjectileFactory;
     public PlayersFactory _PlayersFactory;
     public float CreationDelay = 3f;
-    
+
     private void Awake()
     {
         var endedProjectiles = new List<ProjectileData>();
@@ -34,7 +34,7 @@ public class UpdateManager : MonoBehaviour
     {
         _PlayersFactory.CreatePlayer(this);
     }
-    
+
 
     private void Update()
     {
@@ -57,6 +57,7 @@ public class UpdateManager : MonoBehaviour
         if (CreationDelay <= 0) return;
         CreationDelay -= Time.deltaTime;
     }
+
     public void CreateBullet(BaseData creator)
     {
         _ProjectileFactory.CreateBullet(creator);
@@ -74,15 +75,16 @@ public class UpdateManager : MonoBehaviour
         _CreatedProjectiles.Remove(projectileData);
         Destroy(projectileData.gameObject);
     }
+
     public void ClearEndedProjectiles()
     {
         for (int i = 0; i < _CreatedProjectiles.Count; i++)
         {
-            if (_CreatedProjectiles[i].LifeTime <=0)
+            if (_CreatedProjectiles[i].LifeTime <= 0)
             {
                 RemoveAndDeleteProjectile(_CreatedProjectiles[i]);
             }
-        }  
+        }
     }
 
     public void UpdateLifeTimeOfProjectiles()
@@ -92,11 +94,12 @@ public class UpdateManager : MonoBehaviour
             projectile.LifeTime -= Time.deltaTime;
         }
     }
+
     public void UpdateMovingProjectiles()
     {
         foreach (var projectile in _CreatedProjectiles)
         {
-            projectile.transform.Translate(0,0,projectile.MoveSpeed * Time.deltaTime);
+            projectile.transform.Translate(0, 0, projectile.MoveSpeed * Time.deltaTime);
         }
     }
 
@@ -126,14 +129,28 @@ public class UpdateManager : MonoBehaviour
 
     #region Enemy
 
-    public void AddEnemy(BaseData enemyData)
+    public void AddEnemy (EnemyData enemyData)
     {
-        _CreatedEnemies.Add(enemyData);
+        _CreatedUnits.Add(enemyData);
+        if (enemyData.EnemyController is null)
+        {
+            Debug.Log("EnemyController is Null!");
+        }
+
+        if (enemyData.EnemyController.UpdateManager is null)
+        {
+            enemyData.EnemyController.SetUpdateManager(this);
+        }
+    }
+
+    public void AddPlayer(PlayersData playerData)
+    {
+        _CreatedUnits.Add(playerData);
     }
 
     public void RemoveEnemy(BaseData enemyData)
     {
-        _CreatedEnemies.Remove(enemyData);
+        _CreatedUnits.Remove(enemyData);
     }
 
     private void CreateEnemy()

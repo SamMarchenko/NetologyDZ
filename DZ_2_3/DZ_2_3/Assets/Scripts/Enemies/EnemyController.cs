@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class EnemyController : BaseController
 {
-    public UpdateManager _UpdateManager;
+    //todo: Сделать серилизованным
+    [SerializeField] private UpdateManager _UpdateManager;
+    public UpdateManager UpdateManager => _UpdateManager;
     public EnemyData EnemyData;
     public GameObject enemy;
     private float _shootCoolDown;
@@ -27,5 +29,15 @@ public class EnemyController : BaseController
             _UpdateManager.CreateBullet(EnemyData);
             _shootCoolDown = EnemyData.RateOfFire;
         }
+    }
+
+    public void SetUpdateManager(UpdateManager updateManager)
+    {
+        _UpdateManager = updateManager;
+        if (_UpdateManager == null)
+        {
+            Debug.Log($"{gameObject.name} IS NULL!!!");
+        }
+        Debug.Log("");
     }
 }

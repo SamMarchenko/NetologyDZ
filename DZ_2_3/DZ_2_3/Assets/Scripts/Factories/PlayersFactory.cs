@@ -14,7 +14,7 @@ using UnityEngine;
             var playerController = player.GetComponent<PlayerControl>();
             playerController.SetUpdateManager(_updateManager);
             playerController.PlayersData = _playersView;
-            _updateManager.AddEnemy(player.GetComponent<PlayersData>());
+            _updateManager.AddPlayer(player.GetComponent<PlayersData>());
             return player;
         }
         

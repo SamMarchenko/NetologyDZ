@@ -22,7 +22,7 @@ public class EnemyFactory : MonoBehaviour
         _enemyView = updateManager.EnemyTypes[enemyRandomize];
         var enemy = Instantiate(_enemyView);
         var enemyController = _enemyView.GetComponent<EnemyController>();
-        enemyController._UpdateManager = updateManager;
+        enemyController.SetUpdateManager(updateManager);
         enemyController.EnemyData = _enemyView;
         updateManager.AddEnemy(enemy.GetComponent<EnemyData>());
         return enemy;
